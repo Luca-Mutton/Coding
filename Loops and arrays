@@ -1,0 +1,10 @@
+int main()
+{
+	{
+	 //*for (int text = 1; text < 1500; text *= 2)*
+	 for (int text = 20; text >= 0; text -= 2)
+		cout << text << endl;
+	//	cout << text << "endl";
+	//	cout << "hello world" << endl;
+	}
+    return 0;
