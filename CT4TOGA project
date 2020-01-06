@@ -1,0 +1,463 @@
+// CT4TOGA UP902463 Game.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+using namespace std;
+#include <string>
+
+class Knight
+{
+public:
+	int Knighthp; // the max health for character class
+	int Knightattack; // damage calculated when a knight attacks a knight
+	int Mageattack; // damage calculated when a knight attacks a mage
+	int Tankattack; // damage calculated when a knight attacks a tank
+	int Defendattack; //damage calculated when knight defends
+	
+	//default constructor to set the initial values
+	Knight()
+	{
+		Knighthp = 100;
+		Knightattack = 15;
+		Mageattack = 25;
+		Tankattack = 10;
+		Defendattack = 10;
+	}
+};
+
+class Mage
+{
+public:
+	int Magehp;
+	int Knightattack; // damage calculated when a Mage attacks a knight
+	int Mageattack; // damage calculated when a Mage attacks a mage
+	int Tankattack; // damage calculated when a Mage attacks a tank
+	int Defendattack; //damage calculated when mage defends
+
+
+	Mage()
+	{
+		Magehp = 100;
+		Knightattack = 10;
+		Mageattack = 15;
+		Tankattack = 25;
+		Defendattack = 10;
+	}
+};
+
+class Tank
+{
+public:
+	int Tankhp;
+	int Knightattack; // damage calculated when a tank attacks a knight
+	int Mageattack; // damage calculated when a tank attacks a mage
+	int Tankattack; // damage calculated when a tank attacks a tank
+	int Defendattack; //damage calculated when tank defends
+
+	Tank()
+	{
+		Tankhp = 100;
+		Knightattack = 25;
+		Mageattack = 10;
+		Tankattack = 15;
+		Defendattack = 10;
+	}
+};
+
+class Player //The player's stats throughout the game.
+{
+public:
+	int Health; //How much hp the player will have throughout the game
+
+	Player()
+	{
+		Health = 200;
+	}
+};
+
+
+// displays enemy hp after attack
+void Showenemyhp(string unit, int hp, string amount)
+{
+	cout << "enemy has " << hp << " left" << endl;
+};
+
+// displays player's hp after attack
+void Showhp(string unit, int hp, string amount)
+{
+	cout << "You have " << hp << " left" << endl;
+};
+
+
+int main()
+{
+
+	int choiceOne; //defines the first battle of the game
+	int choiceTwo; //defines the second battle of the game
+	int choiceThree; //defines the third battle of the game
+
+	//introduction to the game plus first battle sequence
+	cout << "You will experience multiple battles where your choices determine the outcome of the fight" << endl;
+
+	cout << "Important tip: Knights > Mages, Mages > Tanks, Tanks > Knights" << endl;
+
+
+	//while the the player's hp is above 0, the battle will loop until the enmy or player is defeated
+	Knight knight1;//intitalising values for the Knight unit
+	{
+
+	}
+	Mage mage1; //intitalising values for the Mage unit
+	{
+
+	}
+
+	Tank tank1;//intitalising values for the Tank unit
+	{
+
+	}
+	Player player1;
+	{
+
+	}
+
+	//whilst the player's hp and enemy knight hp is above 0, the loop below will continue
+		while (player1.Health > 0 && knight1.Knighthp > 0) {
+
+			cout << "An enemy knight approaches" << endl;
+			cout << "What will you do?\n 1 -> Attack with Knight \n 2 -> Attack with Mage \n 3 -> Attack with Tank \n 4 -> Defend" << endl;
+			do { cin >> choiceOne; } while (choiceOne > 5 || choiceOne < 1);
+			switch (choiceOne) {
+			case '1':
+			    choiceOne = 1; //attack with knight
+			    break;
+			case '2':
+				choiceOne = 2; //attack with mage 
+				break;
+			case '3':
+				choiceOne = 3; //attack with tank
+				break;
+			case '4':
+				choiceOne = 4; //defend
+				break;
+			}
+			//attack with knight option
+			if (choiceOne == 1) {
+				cout << "You attack the enemy with the knight, they receive " << knight1.Knightattack << " damage points." << endl;
+				knight1.Knighthp = (knight1.Knighthp - knight1.Knightattack);
+				Showenemyhp("enemy has ", knight1.Knighthp, " hp left"); // calculates damage that the Knight received
+				if (knight1.Knighthp <= 0) //checks if knight health = 0
+				{
+					goto mage; //go to the mage battle sequence
+				}
+				else if (knight1.Knighthp > 0) //checks if knight health is above 0
+				{
+					player1.Health = player1.Health - knight1.Knightattack;
+					cout << "The enemy strikes back, you receive " << knight1.Knightattack << " damage points" << endl;
+					Showhp("You have ", player1.Health, " hp left"); // calculates damage that the player received
+				}
+				if (player1.Health <= 0) //checks if player health = 0 
+				{
+					goto die; //goes to Game over screen
+				}
+			}
+			//attack with mage option
+			if (choiceOne == 2)
+			{
+				cout << "You attack the enemy with the mage, they receive " << mage1.Knightattack << " damage points." << endl;
+				knight1.Knighthp = (knight1.Knighthp - mage1.Knightattack);
+				Showenemyhp("enemy has ", knight1.Knighthp, " left");
+				if (knight1.Knighthp <= 0)
+				{
+					goto mage;
+				}
+				else if (knight1.Knighthp > 0)
+				{
+					cout << "The enemy strikes back, you receive " << knight1.Mageattack << " damage points" << endl;
+					player1.Health = (player1.Health - knight1.Mageattack);
+					Showenemyhp("You have ", player1.Health, " left");
+				}
+				if (player1.Health <= 0)
+				{
+					goto die;
+				}
+			}
+
+			//attack with tank option
+			if (choiceOne == 3)
+			{
+				cout << "You attack the enemy with the tank, they receive " << tank1.Knightattack << " damage points." << endl;
+				knight1.Knighthp = (knight1.Knighthp - tank1.Knightattack);
+				Showenemyhp("enemy has ", knight1.Knighthp, " left");
+				if (knight1.Knighthp <= 0)
+				{
+					goto mage;
+				}
+				else if (knight1.Knighthp > 0)
+				{
+					cout << "The enemy strikes back, you receive " << knight1.Tankattack<< " damage points" << endl;
+					player1.Health = (player1.Health - knight1.Tankattack);
+					Showhp("You have ", player1.Health, " left");
+				}
+				if (player1.Health <= 0)
+				{
+					goto die;
+				}
+			}
+			//defending option
+			if (choiceOne == 4)
+			{
+				Showenemyhp("enemy has", knight1.Knighthp, "left");
+				cout << "You defended yourself from the attack." << endl;
+				if (knight1.Knighthp <= 0)
+				{
+					goto mage;
+				}
+				else if (knight1.Knighthp > 0)
+				{
+					cout << "The enemy strikes back, you receive 10 damage points" << endl;
+					player1.Health = (player1.Health - knight1.Defendattack);
+					Showhp("You have ", player1.Health, " left");
+				}
+				if (player1.Health <= 0)
+				{
+					goto die;
+				}
+			}
+		}
+		//Mage battle sequence
+		; mage:
+		system("cls"); //clears the screen of all the previous text
+		{
+			//whilst the player's hp and enemy mage hp is above 0, the loop below will continue
+			while (player1.Health > 0 && mage1.Magehp > 0) {
+
+				cout << "The knight has been defeated" << endl;
+				cout << "An enemy Mage approaches" << endl;
+
+				cout << "What will you do?\n 1 -> Attack with Knight \n 2 -> Attack with Mage \n 3 -> Attack with Tank \n 4 -> Defend?" << endl;
+				do { cin >> choiceTwo; } while (choiceTwo > 4 || choiceTwo < 1);
+				switch (choiceOne) {
+				case '1':
+					choiceTwo = 1;
+					break;
+				case '2':
+					choiceTwo = 2;
+					break;
+				case '3':
+					choiceTwo = 3;
+					break;
+				case '4':
+					choiceTwo = 4;
+					break;
+				}
+				//attack with knight option
+				if (choiceTwo == 1) {
+					cout << "You attack the enemy with the knight, they receive " << knight1.Mageattack << " damage points." << endl;
+					mage1.Magehp = (mage1.Magehp - knight1.Mageattack);
+					Showenemyhp("enemy has ", mage1.Magehp, " hp left"); // calculates damage that the enemy Mage received
+					if (mage1.Magehp <= 0)//checks if mage health = 0
+					{
+						goto tank; //goes to the next battle sequence
+					}
+					else if (mage1.Magehp > 0)//checks if mage health is above 0
+					{
+						player1.Health = player1.Health - mage1.Knightattack;
+						cout << "The enemy strikes back, you receive " << mage1.Knightattack << " damage points" << endl;
+						Showhp("You have ", player1.Health, " hp left"); // calculates damage that the player received
+					}
+					if (player1.Health <= 0)//checks if player health = 0 
+					{
+						goto die;
+					}
+				}
+				//attack with mage option
+				if (choiceTwo == 2)
+				{
+					cout << "You attack the enemy with the mage, they receive " << mage1.Mageattack << " damage points." << endl;
+					mage1.Magehp = (mage1.Magehp - mage1.Mageattack);
+					Showenemyhp("enemy has ", mage1.Magehp, " left");
+					if (mage1.Magehp <= 0)
+					{
+						goto tank;
+					}
+					else if (mage1.Magehp > 0)
+					{
+						cout << "The enemy strikes back, you receive " << mage1.Mageattack << " damage points" << endl;
+						player1.Health = (player1.Health - mage1.Mageattack);
+						Showenemyhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+
+				//attack with tank option
+				if (choiceTwo == 3)
+				{
+					cout << "You attack the enemy with the tank, they receive " << tank1.Mageattack << " damage points." << endl;
+					mage1.Magehp = (mage1.Magehp - tank1.Mageattack);
+					Showenemyhp("enemy has ", mage1.Magehp, " left");
+					if (mage1.Magehp <= 0)
+					{
+						goto tank;
+					}
+					else if (mage1.Magehp > 0)
+					{
+						cout << "The enemy strikes back, you receive " << mage1.Tankattack << " damage points" << endl;
+						player1.Health = (player1.Health - mage1.Tankattack);
+						Showhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+				//defending option
+				if (choiceTwo == 4)
+				{
+					Showenemyhp("enemy has", mage1.Magehp, "left");
+					cout << "You defended yourself from the attack." << endl;
+					if (mage1.Magehp <= 0)
+					{
+						goto tank;
+					}
+					else if (mage1.Magehp > 0)
+					{
+						cout << "The enemy strikes back, you receive 10 damage points" << endl;
+						player1.Health = (player1.Health - mage1.Defendattack);
+						Showhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+			}
+		}
+
+		; tank: //Tank battle sequence
+		system("cls"); //clears the screen of all the previous text
+		{
+			//whilst the player's hp and enemy tank hp is above 0, the loop below will continue
+			while (player1.Health > 0 && tank1.Tankhp > 0) {
+
+				cout << "The mage has been defeated" << endl;
+				cout << "An enemy Tank approaches" << endl;
+
+				cout << "What will you do?\n 1 -> Attack with Knight \n 2 -> Attack with Mage \n 3 -> Attack with Tank \n 4 -> Defend?" << endl;
+				do { cin >> choiceThree; } while (choiceThree > 4 || choiceTwo < 1);
+				switch (choiceThree) {
+				case '1':
+					choiceThree = 1;
+					break;
+				case '2':
+					choiceThree = 2;
+					break;
+				case '3':
+					choiceThree = 3;
+					break;
+				case '4':
+					choiceThree = 4;
+					break;
+				}
+				//attack with knight option
+				if (choiceThree == 1) {
+					cout << "You attack the enemy with the knight, they receive " << knight1.Tankattack << " damage points." << endl;
+					tank1.Tankhp = (tank1.Tankhp - knight1.Tankattack);
+					Showenemyhp("enemy has ", tank1.Tankhp, " hp left"); // calculates damage that the Tank received
+					if (tank1.Tankhp <= 0)//checks if tank health = 0 
+					{
+						goto end; // goes to the end of the game.
+					}
+					else if (tank1.Tankhp > 0) //checks if tank health is above 0
+					{
+						player1.Health = player1.Health - tank1.Knightattack;
+						cout << "The enemy strikes back, you receive " << tank1.Knightattack << " damage points" << endl;
+						Showhp("You have ", player1.Health, " hp left"); // calculates damage that the player received
+					}
+					if (player1.Health <= 0) //checks if player health = 0 
+					{
+						goto die;
+					}
+				}
+				//attack with mage option
+				if (choiceThree == 2)
+				{
+					cout << "You attack the enemy with the mage, they receive " << mage1.Tankattack << " damage points." << endl;
+					tank1.Tankhp = (tank1.Tankhp - mage1.Tankattack);
+					Showenemyhp("enemy has ", tank1.Tankhp, " left");
+					if (tank1.Tankhp <= 0)
+					{
+						goto end;
+					}
+					else if (tank1.Tankhp > 0)
+					{
+						cout << "The enemy strikes back, you receive " << tank1.Mageattack << " damage points" << endl;
+						player1.Health = (player1.Health - tank1.Mageattack);
+						Showenemyhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+
+				//attack with tank option
+				if (choiceThree == 3)
+				{
+					cout << "You attack the enemy with the tank, they receive " << tank1.Tankattack << " damage points." << endl;
+					tank1.Tankhp = (tank1.Tankhp - tank1.Tankattack);
+					Showenemyhp("enemy has ", tank1.Tankhp, " left");
+					if (tank1.Tankhp <= 0)
+					{
+						goto end;
+					}
+					else if (tank1.Tankhp > 0)
+					{
+						cout << "The enemy strikes back, you receive " << tank1.Tankattack << " damage points" << endl;
+						player1.Health = (player1.Health - tank1.Tankattack);
+						Showhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+				//defending option
+				if (choiceThree == 4)
+				{
+					Showenemyhp("enemy has", tank1.Tankhp, "left");
+					cout << "You defended yourself from the attack." << endl;
+					if (tank1.Tankhp <= 0)
+					{
+						goto end;
+					}
+					else if (tank1.Tankhp > 0)
+					{
+						cout << "The enemy strikes back, you receive 10 damage points" << endl;
+						player1.Health = (player1.Health - tank1.Defendattack);
+						Showhp("You have ", player1.Health, " left");
+					}
+					if (player1.Health <= 0)
+					{
+						goto die;
+					}
+				}
+			}
+		};
+
+	; end: //clears the screen of all the previous text and show the game over screen if you have won
+	system("cls");
+	cout << "The tank has been defeated." << endl;
+	cout << "Thank you for playing" << endl;
+	return 0;
+
+	; die: //clears the screen of all the previous text and show the game over screen if you have lost
+	system("cls");
+	cout << "You have been defeated" << endl;
+	cout << "You lose" << endl;
+	return 0;
+};
