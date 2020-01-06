@@ -1,0 +1,36 @@
+//constants
+
+#define IDNUMBER_BIT 0
+#define ROOMS_BIT 8
+#define MISC_BIT 12
+#define OCCUPANTS_BIT 16
+#define XPOSITION_BIT 24
+#define YPOSITION_BIT 31
+
+// macros
+
+#define IDNUMBER(n)		n << IDNUMBER_BIT
+#define ROOMS(n)		n << ROOMS_BIT
+#define MISC(n)			n << MISC_BIT
+#define OCCUPANTS(n)	n << OCCUPANTS_BIT
+#define XPOSITION(n)	n << XPOSITION_BIT
+#define YPOSITION(n)	n << YPOSITION_BIT
+
+int main()
+{
+	unsigned int houseInfo = 0;
+
+	houseInfo |= IDNUMBER(16);
+	houseInfo |= ROOMS(6);
+	houseInfo |= XPOSITION(13);
+	houseInfo |= YPOSITION(1);
+
+	cout << houseInfo << endl;
+
+	cout << "House ID: " << ((houseInfo >> IDNUMBER_BIT) & 127) << endl;
+	cout << "Rooms: " << ((houseInfo << ROOMS_BIT) & 127) << endl;
+	
+	
+	
+	return 0; 
+}
