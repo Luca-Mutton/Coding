@@ -1,2 +1,2 @@
-# CT4TOGA Visual studio C++ Project
-Code for a project that I did at University of Portsmouth
+# CT4TOGA Visual studio C++
+Code for C++ files where I practiced learnt techniques for C++ in Visual Studios that I learnt at University of Portsmouth
