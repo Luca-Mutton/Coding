@@ -1,0 +1,120 @@
+#pragma once
+
+#include <iostream>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Animal
+{
+public:
+	virtual void speak(void) = 0; //pure virtual function, other classes can inherit from this class but it can't be used itself
+};
+
+class Dog : public Animal
+{
+public:
+	void speak(void)
+	{
+		cout << "I am a dog" << endl;
+	}
+};
+
+class Cat : public Animal
+{
+public:
+	void speak(void)
+	{
+		cout << "I am a cat" << endl;
+	}
+};
+
+class Bird : public Animal
+{
+public:
+	void speak(void)
+	{
+		cout << "I am a bird" << endl;
+	}
+};
+
+int main()
+{
+//	Cat cat1;
+//	cat1.speak();
+//	cat1.Animal::speak();
+	
+//	Cat cats[10];
+//	Dog dogs[10];
+
+	//creates vectors of pointers
+	vector<Dog*> dogVector;
+	vector<Cat*> catVector;
+
+	vector<Animal*> animalVector;
+
+	//pointer to array
+//	Cat * cats = new Cat[10];
+//	Dog * dogs = new Dog[10];
+
+
+	//array for speak class
+//	for (int i = 0; i < 10; i++)
+	{
+//		cats[i].speak();
+//		dogs[i].speak();
+	}
+
+	for (int i = 0; i < 7; i++)
+	{
+		//gets adress of Cat and puts address in the pointer
+		animalVector.push_back(new Cat);
+	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		//gets adress of Cat and puts address in the pointer
+		animalVector.push_back(new Dog);
+	}
+
+	for (int i = 0; i < 7; i++)
+	{
+		//gets adress of Cat and puts address in the pointer
+		catVector.push_back(new Cat);
+	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		//gets adress of Cat and puts address in the pointer
+		dogVector.push_back(new Dog);
+	}
+
+	//iterator goes through elements in a vector (while loop)
+	for (vector<Animal*>::iterator currentAnimal = animalVector.begin(); currentAnimal != animalVector.end(); ++currentAnimal)
+	{
+		(*currentAnimal)->speak();
+
+		//create a cat pointer(looks at currentAnimal to perrform a differnt outcome)
+		Cat* catCheck = dynamic_cast<Cat*>(*currentAnimal);
+		if (catCheck == NULL)
+		{
+			cout << "(that was a dog)" << endl;
+		}
+		else
+		{
+			cout << "(that was a cat)" << endl;
+		}
+	}
+
+
+	for (vector<Animal*>::iterator currentAnimal = animalVector.begin(); currentAnimal != animalVector.end(); ++currentAnimal)
+	{
+		delete* currentAnimal;
+		*currentAnimal = NULL;
+	}
+
+
+	animalVector.clear();
+
+
+	return 0;
