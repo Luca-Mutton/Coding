@@ -1,5 +1,5 @@
 // CT4TOGA UP902463 Game.cpp : Defines the entry point for the console application.
-//
+// Project for 'Tools for Games and Animation'
 
 #include "stdafx.h"
 #include <iostream>
